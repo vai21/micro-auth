@@ -14,3 +14,13 @@ sequelize
 uuid
 
 The structure is base on experience and my style
+
+To test the apps first npm install
+then install nodemon -> npm install nodemon -g
+then start the apps -> npm run dev
+
+create .env file in root directory of this apps and fill this for the connection to mysql:
+DB_NAME=dbname
+DB_USER=username
+DB_PASS=userpassword
+DB_HOST=localhost

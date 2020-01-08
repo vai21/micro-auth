@@ -14,6 +14,6 @@ const dbConnect = async () => {
   }
 }
 
-// dbConnect()
+dbConnect()
 
 module.exports = sequelize
