@@ -12,10 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // ============================  all routes  =======================================
 const loginRoute = require('./routers/login')
-const homeRoute = require('./routers/home')
+const baseRoute = require('./routers/base')
 
 app.use(loginRoute)
-app.use(homeRoute)
+app.use(baseRoute)
 // ============================  all routes  =======================================
 
 app.get('/', (req, res) => res.send('Skeleton API V1'))

@@ -1,7 +1,7 @@
 const successMsg = require('../response').success
 const errMsg = require('../response').err
 
-const getHome = async (req, res) => {
+const getBase = async (req, res) => {
   try {
     const data = {
       value: 'Hello World!'
@@ -13,5 +13,5 @@ const getHome = async (req, res) => {
 }
 
 module.exports = {
-  getHome
+  getBase
 }
