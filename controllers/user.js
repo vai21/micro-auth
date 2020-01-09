@@ -52,14 +52,11 @@ const changePassword = async (req, res) => {
       }
     });
     let hash = userData.dataValues.password
-
-    hash = hash.replace(/^\$2y(.+)$/i, '$2a$1');
-
     let verifyPass = await bcrypt.compare(password, hash);
 
     if (verifyPass) {
       let newHash = await bcrypt.hash(newPassword, 10)
-      newHash = newHash.replace(/^\$2y(.+)$/i, '$2a$1');
+      
       await User.update({
         password: newHash
     }, {
