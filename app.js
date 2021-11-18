@@ -21,6 +21,6 @@ app.use(loginRoute);
 app.use(baseRoute);
 // ============================  all routes  =======================================
 
-app.get('/', (req, res) => res.send('Skeleton API V1'));
+app.get('/', (req, res) => res.send('Authentication API V1'));
 
-app.listen(port, () => winston.log('info', `express-skel-api app listening on port ${port}!`));
+app.listen(port, () => winston.log('info', `authentication service listening on port ${port}!`));

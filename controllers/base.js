@@ -4,7 +4,7 @@ const errMsg = require('../helpers/response').err;
 const getBase = async (req, res) => {
   try {
     const data = {
-      value: 'Hello World!',
+      value: 'Service is running!',
     };
     return res.json(successMsg(data));
   } catch (err) {
