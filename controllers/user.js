@@ -1,20 +1,23 @@
-const User = require('../models/users')
-const bcrypt = require('bcrypt')
-const successMsg = require('../response').success
-const errMsg = require('../response').err
+const bcrypt = require('bcrypt');
+const winston = require('winston');
+
+const User = require('../models/users');
+
+const successMsg = require('../helpers/response').success;
+const errMsg = require('../helpers/response').err;
 
 const getUser = async (req, res) => {
   try {
-    res.json(successMsg(res.locals.user))
+    res.json(successMsg(res.locals.user));
   } catch (err) {
-    console.error(err)
-    res.status(400).json(errMsg(err))
+    winston.log('error', err);
+    res.status(400).json(errMsg(err));
   }
-}
+};
 
 const updateUser = async (req, res) => {
   try {
-    let updateObject = {
+    const updateObject = {
       first_name: req.body.firstName,
       last_name: req.body.lastName,
       phone: req.body.phone,
@@ -27,55 +30,54 @@ const updateUser = async (req, res) => {
       relationship: req.body.relationship,
       facebook: req.body.facebook,
       twitter: req.body.twitter,
-      instagram: req.body.twitter
-    }
-    const update = await User.update(updateObject, {
+      instagram: req.body.twitter,
+    };
+    await User.update(updateObject, {
       where: {
-        email: res.locals.user.email
-      }
-    })
-    res.json(successMsg('success updated profile'))
+        email: res.locals.user.email,
+      },
+    });
+    res.json(successMsg('success updated profile'));
   } catch (err) {
-    console.error(err)
-    res.status(400).json(errMsg(err))
+    winston.log('error', err);
+    res.status(400).json(errMsg(err));
   }
-}
+};
 
 const changePassword = async (req, res) => {
   try {
-    const password = req.body.password
-    const newPassword = req.body.newPassword
+    const { password, newPassword } = req.body;
 
     const userData = await User.findOne({
       where: {
-        email: res.locals.user.email
-      }
+        email: res.locals.user.email,
+      },
     });
-    let hash = userData.dataValues.password
-    let verifyPass = await bcrypt.compare(password, hash);
+    const hash = userData.dataValues.password;
+    const verifyPass = await bcrypt.compare(password, hash);
 
     if (verifyPass) {
-      let newHash = await bcrypt.hash(newPassword, 10)
-      
+      const newHash = await bcrypt.hash(newPassword, 10);
+
       await User.update({
-        password: newHash
-    }, {
+        password: newHash,
+      }, {
         where: {
-          email: res.locals.user.email
-        }
-      })
+          email: res.locals.user.email,
+        },
+      });
     } else {
-      throw 'wrong password'
+      throw new Error('wrong password');
     }
-    res.json(successMsg('success changing password'))
+    return res.json(successMsg('success changing password'));
   } catch (err) {
-    console.error(err)
-    res.status(400).json(errMsg(err))
+    winston.log('error', err);
+    return res.status(400).json(errMsg(err));
   }
-}
+};
 
 module.exports = {
   getUser,
   updateUser,
-  changePassword
-}
+  changePassword,
+};
