@@ -1,64 +1,64 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../db')
+const Sequelize = require('sequelize');
+const sequelize = require('../config/db');
 
 const User = sequelize.define('user', {
   // attributes
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   username: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   first_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   last_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   age: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
   },
   phone: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   gender: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   country: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   province: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   city: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   relationship: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   facebook: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   twitter: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   instagram: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   role: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   session: {
-    type: Sequelize.STRING
-  }
+    type: Sequelize.STRING,
+  },
 }, {
-  freezeTableName: true
-})
+  freezeTableName: true,
+});
 
-module.exports = User
+module.exports = User;

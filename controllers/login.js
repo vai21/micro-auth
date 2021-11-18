@@ -1,54 +1,54 @@
-const User = require('../models/users')
-const bcrypt = require('bcrypt')
-const successMsg = require('../response').success
-const errMsg = require('../response').err
-const uuid = require('uuid/v1')
-const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
+const uuid = require('uuid/v1');
+const jwt = require('jsonwebtoken');
+const winston = require('winston');
+
+const User = require('../models/users');
+const successMsg = require('../helpers/response').success;
+const errMsg = require('../helpers/response').err;
 
 const login = async (req, res) => {
   try {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body;
 
-    if (email === '') {
-      throw 'email must be filled'
+    if (typeof email === 'undefined' || !email) {
+      throw new Error('email must be filled');
     }
 
     if (password === '') {
-      throw 'password must be filled'
+      throw new Error('password must be filled');
     }
-    
+
     const users = await User.findOne({
       where: {
-        email: email
-      }
+        email,
+      },
     });
-    let hash = users.dataValues.password
-    
-    let verifyPass = await bcrypt.compare(password, hash);
+    const hash = users.dataValues.password;
+
+    const verifyPass = await bcrypt.compare(password, hash);
 
     if (verifyPass) {
-      const newSession = uuid()
+      const newSession = uuid();
       await User.update({
-        session: newSession
+        session: newSession,
       }, {
         where: {
-          email: email
-        }
-      })
+          email,
+        },
+      });
       const token = jwt.sign({
-        email: email,
-        session: newSession
-      }, process.env.SECRET)
-      res.set('Authorization', token)
-      return res.json(successMsg('successfully logged in')) 
-    } else {
-      throw 'wrong password'
+        email,
+        session: newSession,
+      }, process.env.SECRET);
+      res.set('Authorization', token);
+      return res.json(successMsg('successfully logged in'));
     }
+    throw new Error('wrong password');
   } catch (err) {
-    console.error(err)
-    res.status(400).json(errMsg(err))
+    winston.log('error', err);
+    return res.status(400).json(errMsg(err));
   }
-}
+};
 
-module.exports = login
+module.exports = login;
