@@ -1,0 +1,62 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "",
+        "version": "1.0.0",
+        "title": "Microservice Authentication",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "apiteam@swagger.io"
+        },
+        "license": {
+          "name": "Apache 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "auth.frstechnology.com",
+    "basePath": "/v1",
+    "tags":[
+        {
+            "name": "login",
+            "description": "Login"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths":{
+        "/pet": {
+            "post": {
+                "tags": [
+                    "pet"
+                ], 
+                "summary": "Login to services",
+                "description": "",
+                "operationId": "login",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Pet object that needs to be added to the store",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+          
+        }
+    }
+}
