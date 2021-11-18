@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const winston = require('winston');
 const swaggerUi = require('swagger-ui-express');
+const winston = require('./config/winston');
 
 const app = express();
 const port = process.env.PORT || 3000;

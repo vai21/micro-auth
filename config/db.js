@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const winston = require('winston');
+const winston = require('./winston');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,

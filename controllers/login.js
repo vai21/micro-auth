@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const uuid = require('uuid/v1');
 const jwt = require('jsonwebtoken');
-const winston = require('winston');
+const winston = require('../config/winston');
 
 const User = require('../models/users');
 const successMsg = require('../helpers/response').success;
